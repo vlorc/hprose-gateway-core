@@ -1,6 +1,6 @@
 package etcd
 
-import "github.com/vlorc/hprose-gateway-core/types"
+import "github.com/vlorc/hprose-gateway-types"
 
 func (r *etcdRegiser) Update(service *types.Service) error {
 	return r.manager.update(r.key, service)

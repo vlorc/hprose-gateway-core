@@ -1,6 +1,6 @@
 package balancer
 
-import "github.com/vlorc/hprose-gateway-core/types"
+import "github.com/vlorc/hprose-gateway-types"
 
 var balancer = make(map[string]types.BalancerFactory)
 

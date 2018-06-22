@@ -2,7 +2,7 @@ package etcd
 
 import (
 	"encoding/json"
-	"github.com/vlorc/hprose-gateway-core/types"
+	"github.com/vlorc/hprose-gateway-types"
 	"time"
 )
 

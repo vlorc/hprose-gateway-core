@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"github.com/coreos/etcd/clientv3"
 	"github.com/coreos/etcd/mvcc/mvccpb"
-	"github.com/vlorc/hprose-gateway-core/types"
+	"github.com/vlorc/hprose-gateway-types"
 )
 
 func NewEtcdResolver(client func() *clientv3.Client, parent context.Context, scheme string) types.NamedResolver {

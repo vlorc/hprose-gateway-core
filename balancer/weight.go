@@ -3,7 +3,7 @@ package balancer
 import (
 	"context"
 	"encoding/json"
-	"github.com/vlorc/hprose-gateway-core/types"
+	"github.com/vlorc/hprose-gateway-types"
 	"reflect"
 	"strconv"
 )

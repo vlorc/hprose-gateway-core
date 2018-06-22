@@ -1,6 +1,6 @@
 package driver
 
-import "github.com/vlorc/hprose-gateway-core/types"
+import "github.com/vlorc/hprose-gateway-types"
 
 var driver = make(map[string]types.SourceFactory)
 

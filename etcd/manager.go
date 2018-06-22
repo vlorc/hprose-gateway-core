@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/coreos/etcd/clientv3"
-	"github.com/vlorc/hprose-gateway-core/types"
+	"github.com/vlorc/hprose-gateway-types"
 )
 
 func NewEtcdManager(client func() *clientv3.Client, parent context.Context, scheme string, ttl int64) types.NamedManger {

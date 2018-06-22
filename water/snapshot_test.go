@@ -1,7 +1,7 @@
 package water
 
 import (
-	"github.com/vlorc/hprose-gateway-core/types"
+	"github.com/vlorc/hprose-gateway-types"
 	"testing"
 	"time"
 )

@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/vlorc/hprose-gateway-core/balancer"
-	"github.com/vlorc/hprose-gateway-core/types"
+	"github.com/vlorc/hprose-gateway-types"
 	"sync"
 )
 
