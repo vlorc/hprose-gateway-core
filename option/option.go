@@ -2,7 +2,6 @@ package option
 
 import (
 	"context"
-	"github.com/vlorc/hprose-gateway-core/etcd"
 	"github.com/vlorc/hprose-gateway-core/invoker"
 	"github.com/vlorc/hprose-gateway-core/plugin"
 	"github.com/vlorc/hprose-gateway-core/router"
@@ -41,11 +40,6 @@ func Manager(manager types.SourceManger) func(*GatewayOption) {
 func Prefix(prefix string) func(*GatewayOption) {
 	return func(opt *GatewayOption) {
 		opt.Prefix = prefix
-	}
-}
-func EtcdResolver(url, prefix string) func(*GatewayOption) {
-	return func(opt *GatewayOption) {
-		opt.Resolver = etcd.NewEtcdResolver(etcd.NewLazyClient(etcd.NewClient(url)), opt.Context, prefix)
 	}
 }
 
