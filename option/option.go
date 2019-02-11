@@ -37,6 +37,12 @@ func Manager(manager types.SourceManger) func(*GatewayOption) {
 	}
 }
 
+func Name(name string) func(*GatewayOption) {
+	return func(opt *GatewayOption) {
+		opt.Prefix = name
+	}
+}
+
 func Prefix(prefix string) func(*GatewayOption) {
 	return func(opt *GatewayOption) {
 		opt.Prefix = prefix
