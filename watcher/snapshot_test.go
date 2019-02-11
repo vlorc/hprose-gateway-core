@@ -1,4 +1,4 @@
-package water
+package watcher
 
 import (
 	"github.com/vlorc/hprose-gateway-types"
@@ -24,10 +24,10 @@ func (*beanSource) Close() error {
 }
 
 func Test_Snapshot(t *testing.T) {
-	water, query := NewSnapshotWater(NewChannelWater(100), func() types.Source {
+	watcher, query := NewSnapshotWatcher(NewChannelWatcher(100), func() types.Source {
 		return &beanSource{}
 	})
-	water.Push([]types.Update{{Op: types.Add, Id: "/user/1", Service: &types.Service{
+	watcher.Push([]types.Update{{Op: types.Add, Id: "/user/1", Service: &types.Service{
 		Id:       "1",
 		Name:     "user",
 		Version:  "1.0.0",

@@ -17,7 +17,7 @@ Hprose gateway core based on golang
 + lazy load
 + balancer
 + invoker
-+ water
++ watcher
 
 ## Installing
 	go get github.com/vlorc/hprose-gateway-core

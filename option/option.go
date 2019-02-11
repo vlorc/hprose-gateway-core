@@ -6,8 +6,8 @@ import (
 	"github.com/vlorc/hprose-gateway-core/plugin"
 	"github.com/vlorc/hprose-gateway-core/router"
 	"github.com/vlorc/hprose-gateway-core/source"
+	"github.com/vlorc/hprose-gateway-core/watcher"
 	"github.com/vlorc/hprose-gateway-types"
-	"github.com/vlorc/hprose-gateway-core/water"
 	"go.uber.org/zap"
 )
 
@@ -15,7 +15,7 @@ type GatewayOption struct {
 	Router   types.NamedRouter
 	Context  context.Context
 	Resolver types.NamedResolver
-	Water    types.NamedWatcher
+	Watcher  types.NamedWatcher
 	Manager  types.SourceManger
 	Named    types.NamedMode
 	Balancer string
@@ -71,13 +71,7 @@ func Error(err error) func(*GatewayOption) {
 	}
 }
 
-func Logger(log func() *zap.Logger) func(*GatewayOption) {
-	return func(opt *GatewayOption) {
-		opt.Log = log
-	}
-}
-
-func LoggerAuto(debug bool) func(*GatewayOption) {
+func Logger(debug bool) func(*GatewayOption) {
 	return func(opt *GatewayOption) {
 		var log *zap.Logger
 		var err error
@@ -107,32 +101,30 @@ func Named(mode types.NamedMode) func(*GatewayOption) {
 	}
 }
 
-func RouterAuto() func(*GatewayOption) {
+func Router(r ...types.NamedRouter) func(*GatewayOption) {
 	return func(opt *GatewayOption) {
-		opt.Router = router.NewNamedRouter(opt.Balancer, opt.Manager, opt.Named)
+		if len(r) > 0 {
+			opt.Router = r[0]
+		} else {
+			opt.Router = router.NewNamedRouter(opt.Balancer, opt.Manager, opt.Named)
+		}
 	}
 }
 
-func WaterAuto(out ...types.NamedWatcher) func(*GatewayOption) {
+func Watcher(w ...types.NamedWatcher) func(*GatewayOption) {
 	return func(opt *GatewayOption) {
-		opt.Water = water.NewSnapshotWater(
-			water.NewChannelWater(100),
+		var ww types.NamedWatcher
+		if len(w) > 0 {
+			ww = watcher.NewMultiWatcher(watcher.NewChannelWatcher(100),w...)
+		} else {
+			ww = watcher.EmptyWatcher{}
+		}
+		opt.Watcher = watcher.NewSnapshotWatcher(
+			watcher.NewChannelWatcher(100),
 			opt.Router,
 			opt.Manager,
 			source.NewErrorSource(opt.Error),
-			out...)
-	}
-}
-
-func Water(water types.NamedWatcher) func(*GatewayOption) {
-	return func(opt *GatewayOption) {
-		opt.Water = water
-	}
-}
-
-func Router(router types.NamedRouter) func(*GatewayOption) {
-	return func(opt *GatewayOption) {
-		opt.Router = router
+			ww)
 	}
 }
 
